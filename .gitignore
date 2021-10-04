@@ -159,6 +159,6 @@ buildNumber.properties
 ### VS Code ###
 .vscode/
 
-.mvn/*
+.mvn/
 
 
