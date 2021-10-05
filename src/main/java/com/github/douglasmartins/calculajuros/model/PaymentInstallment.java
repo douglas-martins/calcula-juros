@@ -13,7 +13,7 @@ public class PaymentInstallment {
 
     private Integer numeroParcela;
 
-    private BigDecimal valor;
+    private Double valor;
 
     private BigDecimal taxaJurosAoMes;
 }

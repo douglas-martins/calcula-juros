@@ -34,8 +34,7 @@ public class SelicController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
 
-        List<SelicTax> taxs = selicService.getTax(negotiation.getCondicaoPagamento().getQtdeParcelas());
-        List<PaymentInstallment> result = selicService.getNegotiationValue(negotiation, taxs);
+        List<PaymentInstallment> result = selicService.getNegotiationValue(negotiation);
 
         return ResponseEntity.ok().body(result);
     }
