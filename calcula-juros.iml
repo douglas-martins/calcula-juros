@@ -19,6 +19,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="calcula-juros" />
+          <factory-entry name="entityManagerFactory" value="51e94aab-fd5d-45fb-8d31-e488c1b89893" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>

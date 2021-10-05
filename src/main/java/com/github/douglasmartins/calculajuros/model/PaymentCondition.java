@@ -1,6 +1,7 @@
 package com.github.douglasmartins.calculajuros.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Data
 public class PaymentCondition {
 
     @DecimalMin(value = "0.0", inclusive = false)
