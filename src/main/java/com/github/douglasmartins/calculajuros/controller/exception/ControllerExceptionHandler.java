@@ -1,5 +1,6 @@
 package com.github.douglasmartins.calculajuros.controller.exception;
 
+import com.github.douglasmartins.calculajuros.exception.InvalidNegotiationValues;
 import com.github.douglasmartins.calculajuros.exception.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ApiError> handleNotFoundException(NotFoundException exception) {
         ApiError error = new ApiError(HttpStatus.NOT_FOUND.value(), exception.getMessage(), LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(InvalidNegotiationValues.class)
+    public ResponseEntity<ApiError> handleInvalidNegotiationValuesException(InvalidNegotiationValues exception) {
+        ApiError error = new ApiError(HttpStatus.BAD_REQUEST.value(), exception.getMessage(), LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
     @Override

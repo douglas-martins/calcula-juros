@@ -1,18 +1,15 @@
 package com.github.douglasmartins.calculajuros.controller;
 
-import com.github.douglasmartins.calculajuros.controller.exception.ApiError;
-import com.github.douglasmartins.calculajuros.controller.exception.ApiErrorList;
+import com.github.douglasmartins.calculajuros.exception.InvalidNegotiationValues;
 import com.github.douglasmartins.calculajuros.model.Negotiation;
 import com.github.douglasmartins.calculajuros.model.PaymentInstallment;
-import com.github.douglasmartins.calculajuros.model.SelicTax;
 import com.github.douglasmartins.calculajuros.service.SelicService;
-import org.springframework.http.HttpStatus;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -24,14 +21,14 @@ public class SelicController {
         this.selicService = service;
     }
 
-    @PostMapping
-    public ResponseEntity<Object> calculateNegotiation(@RequestBody @Valid Negotiation negotiation) {
+    @ApiOperation(value = "Executa o cálculo de uma negociação de produto")
+    @PostMapping(produces = "application/json", consumes = "application/json")
+    public ResponseEntity<List<PaymentInstallment>> calculateNegotiation(@RequestBody @Valid Negotiation negotiation) {
         BigDecimal productValue = negotiation.getProduto().getValor();
         BigDecimal inCashValue = negotiation.getCondicaoPagamento().getValorEntrada();
         if (productValue.subtract(inCashValue).intValue() <= 0) {
-            ApiError error = new ApiError(HttpStatus.BAD_REQUEST.value(), "Valor de entrada não pode ser maior ou igual do valor do produto", LocalDateTime.now());
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            String message = "Valor de entrada não pode ser maior ou igual do valor do produto";
+            throw new InvalidNegotiationValues(message);
         }
 
         List<PaymentInstallment> result = selicService.getNegotiationValue(negotiation);
