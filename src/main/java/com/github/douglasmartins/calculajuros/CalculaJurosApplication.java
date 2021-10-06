@@ -8,9 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan(basePackages = {"com.github.douglasmartins.calculajuros.model"})
-@ComponentScan(basePackages = {"com.github.douglasmartins.calculajuros.*"})
-@EnableJpaRepositories(basePackages = "com.github.douglasmartins.calculajuros.repository")
 @EnableConfigurationProperties
 public class CalculaJurosApplication {
 

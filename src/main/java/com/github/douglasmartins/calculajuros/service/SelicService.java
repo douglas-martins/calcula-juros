@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class SelicService {
         List<PaymentInstallment> result = new ArrayList<>();
         Integer installments = negotiation.getCondicaoPagamento().getQtdeParcelas();
         Double installmentValue = newTotalValue
-                .divide(BigDecimal.valueOf(installments), RoundingMode.UNNECESSARY)
+                .divide(BigDecimal.valueOf(installments), RoundingMode.HALF_EVEN)
                 .doubleValue();
 
         for (int i = 0; i < installments; i++) {
@@ -84,22 +85,25 @@ public class SelicService {
      * @return uma lista com todas as parcelas com valor e taxa de juros.
      */
     private List<PaymentInstallment> getIncreasedNegotiationValue(Negotiation negotiation, BigDecimal newTotalValue) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
         List<PaymentInstallment> result = new ArrayList<>();
         Integer installments = negotiation.getCondicaoPagamento().getQtdeParcelas();
         List<SelicTax> taxs = this.getTax(installments);
         BigDecimal finalValue = this.calculateSelicTax(taxs, newTotalValue);
         BigDecimal installmentValue = finalValue
-                .divide(BigDecimal.valueOf(installments), RoundingMode.HALF_UP);
-        System.out.println(installmentValue);
+                .divide(BigDecimal.valueOf(installments), RoundingMode.HALF_EVEN);
 
         for (int i = 0; i < installments; i++) {
             Integer installment = (i + 1);
             SelicTax tax = i >= taxs.size() ? taxs.get(0) : taxs.get(i);
             BigDecimal taxValue = tax.getValor();
+            Double convertedInstallmentValue = installmentValue
+                    .setScale(2, RoundingMode.HALF_EVEN)
+                    .doubleValue();
 
             PaymentInstallment paymentInstallment = new PaymentInstallment(
                     installment,
-                    installmentValue.doubleValue(),
+                    convertedInstallmentValue,
                     taxValue
             );
 
@@ -164,7 +168,7 @@ public class SelicService {
             int monthDays = tax.getData().lengthOfMonth();
 
             for (int j = 0; j < monthDays; j++) {
-                totalValue = totalValue.add(totalValue.multiply(taxValue).divide(oneHundred, RoundingMode.HALF_UP));
+                totalValue = totalValue.add(totalValue.multiply(taxValue).divide(oneHundred, RoundingMode.HALF_EVEN));
             }
         }
 
