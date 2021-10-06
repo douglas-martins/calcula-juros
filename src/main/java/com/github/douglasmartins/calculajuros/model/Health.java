@@ -3,12 +3,14 @@ package com.github.douglasmartins.calculajuros.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@ToString
 public class Health {
     
     private String status;

@@ -37,6 +37,7 @@ public class SelicService {
      */
     public List<PaymentInstallment> getNegotiationValue(Negotiation negotiation) {
         PaymentCondition paymentCondition = negotiation.getCondicaoPagamento();
+        Boolean useFixedValue = negotiation.getUseFixedValue();
         BigDecimal newTotalValue = negotiation
                 .getProduto()
                 .getValor()
@@ -62,6 +63,7 @@ public class SelicService {
                 .divide(BigDecimal.valueOf(installments), RoundingMode.HALF_EVEN)
                 .doubleValue();
 
+        System.out.println(installmentValue);
         for (int i = 0; i < installments; i++) {
             Integer installment = (i + 1);
 
@@ -85,10 +87,9 @@ public class SelicService {
      * @return uma lista com todas as parcelas com valor e taxa de juros.
      */
     private List<PaymentInstallment> getIncreasedNegotiationValue(Negotiation negotiation, BigDecimal newTotalValue) {
-        DecimalFormat decimalFormat = new DecimalFormat("#.##");
         List<PaymentInstallment> result = new ArrayList<>();
         Integer installments = negotiation.getCondicaoPagamento().getQtdeParcelas();
-        List<SelicTax> taxs = this.getTax(installments);
+        List<SelicTax> taxs = this.getTax(installments, negotiation.getUseFixedValue());
         BigDecimal finalValue = this.calculateSelicTax(taxs, newTotalValue);
         BigDecimal installmentValue = finalValue
                 .divide(BigDecimal.valueOf(installments), RoundingMode.HALF_EVEN);
@@ -119,7 +120,11 @@ public class SelicService {
      * @param installments número de parcelas que foi pedido pela negociação.
      * @return uma lista com todas as taxas Selic disponíveis.
      */
-    private List<SelicTax> getTax(Integer installments) {
+    private List<SelicTax> getTax(Integer installments, Boolean useFixedTax) {
+        if (useFixedTax) {
+            return this.getFixedTax();
+        }
+
         String startData = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String endData = LocalDate.now().plusMonths(installments).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String url = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados?formato=json"
