@@ -1,9 +1,6 @@
 create database selic;
 
-select 'create database selic'
-    where not exists (select from pg_database where datname = 'selic')\gexec
-
-select 'create table produto
+create table produto
 (
     codigo bigserial
         constraint produto_pkey
@@ -13,8 +10,7 @@ select 'create table produto
 );
 
 alter table produto
-    owner to postgres;'
-    where not exists (select from pg_)
+    owner to postgres;
 
 -- SQL para inserção de dados (não utilizado por padrão)
 -- insert into produto (name, price)
