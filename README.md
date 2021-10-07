@@ -60,7 +60,7 @@ $ docker rm postger_cntr
 ```bash
 calcula-juros$ docker start postgres_cntr
 calcula-juros$ docker cp ./create.sql postgres_cntr:/create.sql
-calcula-juros$ docker exec -it postgres_cntr psql -U postgres -f /create.sq
+calcula-juros$ docker exec -it postgres_cntr psql -U postgres -f /create.sql
 calcula-juros$ ./mvnw clean install
 calcula-juros$ ./mvnw spring-boot:run
 ```
