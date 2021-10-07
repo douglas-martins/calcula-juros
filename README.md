@@ -89,7 +89,8 @@ calcula-juros/src/main/docker$ docker-compose up -d
 
 <br/>
 
-#### [Erro de permissão ao executar container](docker_compose_error.png)
+#### Erro de permissão ao executar container
+![docker compose error](docker_compose_error.png)
 
 Caso ocorra esse erro descrito na execução via docker-compose, é necessário executar os seguintes comandos:
 ```bash
