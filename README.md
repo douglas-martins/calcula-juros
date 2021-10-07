@@ -111,7 +111,7 @@ calcula-juros$ ./mvnw test -Dtest=TestingWebApplicationTest
 ----
 
 ### Documentação API
-Para visualização de todos os endpoints disponíveis da aplicação, com a aplicação de pé, basta acessar em seu navegador:
+Para visualização de todos os endpoints disponíveis da aplicação, basta acessar em seu navegador (com a aplicação de pé):
 
 `http://localhost:8080/swagger-ui/index.html`
 >Foi utilizado o [Swagger 2](https://swagger.io/specification/v2/)
