@@ -1,4 +1,4 @@
-# :currency_exchange: Calcula Juros
+# :money_with_wings: Calcula Juros
 
 Aplicação responsável por calcular o juros em cima de um produto, com base na taxa Selic.
 
