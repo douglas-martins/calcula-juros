@@ -161,4 +161,6 @@ buildNumber.properties
 
 .mvn/
 
+src/main/docker/*.jar
+
 

@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="calcula-juros" target="16" />
+      <module name="calcula-juros" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
