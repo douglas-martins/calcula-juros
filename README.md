@@ -89,6 +89,17 @@ calcula-juros/src/main/docker$ docker-compose up -d
 
 <br/>
 
+#### [Erro de permissão ao executar container](docker_compose_error.png)
+
+Caso ocorra esse erro descrito na execução via docker-compose, é necessário executar os seguintes comandos:
+```bash
+calcula-juros/src/main/docker$ chmod +r db/01-init.sh
+calcula-juros/src/main/docker$ chmod +x db/01-init.sh
+```
+> Dando permissão de execução e leitura para o arquivo
+
+<br/>
+
 ----
 
 ### Execução dos testes da aplicação:
