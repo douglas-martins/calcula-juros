@@ -85,7 +85,7 @@ calcula-juros/src/main/docker$ docker-compose up
 # ou para rodar o serviço de fundo no SO
 calcula-juros/src/main/docker$ docker-compose up -d
 ```
-> Executa o primeiro comando para gerar um novo container e executa um dos 2 últimos comandos para subir a aplicação
+> Entra no diretório correto e executa o primeiro comando para gerar um novo container e executa um dos 2 últimos comandos para subir a aplicação
 
 <br/>
 
