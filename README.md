@@ -25,7 +25,7 @@ A versão do Java é [AdoptOpenJDK 11.0.11](https://adoptopenjdk.net/)
 - macOS
     - [Brew - Gerenciador de pacotes](https://brew.sh/index_pt-br)
     - [Docker](https://docs.docker.com/docker-for-mac/install/)
-    - Mave:
+    - Maven:
     ```bash
     $ brew install maven
     ```
